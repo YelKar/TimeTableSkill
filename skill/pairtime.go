@@ -19,7 +19,7 @@ func (t *PairTime) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (t PairTime) String() string {
-	res := time.Time(t)
+func (t *PairTime) String() string {
+	res := time.Time(*t)
 	return res.Format("15:04")
 }

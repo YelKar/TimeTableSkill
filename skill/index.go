@@ -81,7 +81,7 @@ func Handler(request HTTPRequest) (httpResponse *HTTPResponse, reqErr error) {
 	}
 	for k, day := range weekdays {
 		if strings.Contains(text, day) {
-			dayAnswer, err := getByWeekday(k)
+			dayAnswer, err := getByWeekdayAnswer(k)
 			if err != nil {
 				*answer = err.Error()
 				return

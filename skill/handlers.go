@@ -6,10 +6,16 @@ import (
 
 func getDayAfterToday(after int) (string, error) {
 	weekday := time.Now().Weekday()
-	return getByWeekday((int(weekday) + 6 + int(after)) % 7)
+	day := getByWeekday((int(weekday) + 6 + after) % 7)
+	return day.Answer()
 }
 
-func getByWeekday(dayNum int) (string, error) {
+func getByWeekdayAnswer(dayNum int) (string, error) {
+	day := getByWeekday(dayNum)
+	return day.Answer()
+}
+
+func getByWeekday(dayNum int) TableDay {
 	table := getTable()
-	return table[dayNum].Answer()
+	return table[dayNum]
 }

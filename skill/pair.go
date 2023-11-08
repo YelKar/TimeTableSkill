@@ -3,15 +3,17 @@ package main
 import "fmt"
 
 type Pair struct {
-	Groups [2]GroupPair `json:"groups"`
-	Start  PairTime     `json:"start,omitempty"`
-	End    PairTime     `json:"end,omitempty"`
+	Groups    []GroupPair     `json:"groups,omitempty"`
+	WeekSplit *[2][]GroupPair `json:"week_split,omitempty"`
+	Start     PairTime        `json:"start,omitempty"`
+	End       PairTime        `json:"end,omitempty"`
 }
 
 type GroupPair struct {
-	Name string   `json:"name"`
-	Room int16    `json:"room"`
-	Type PairType `json:"type"`
+	Name  string   `json:"name"`
+	Room  int16    `json:"room"`
+	Group string   `json:"group"`
+	Type  PairType `json:"type"`
 }
 
 type PairType string
@@ -24,16 +26,19 @@ func (t PairType) String() string {
 }
 
 func (p *Pair) Answer() string {
-	if p.Groups[0] == p.Groups[1] {
-		return "    " + p.Groups[0].Name
-	} else {
-		var pairString string
-		for n, pair := range p.Groups {
+	var pairString string
+	for _, pair := range p.Groups {
+		pairString += "    "
+		if pair.Group != "" {
 			pairString += fmt.Sprintf(
-				"    У ПС-1%d %s %s\n",
-				n+1, pair.Name, pair.Type,
+				"У %s ",
+				pair.Group,
 			)
 		}
-		return pairString
+		pairString += fmt.Sprintf(
+			"%s %s\n",
+			pair.Name, pair.Type,
+		)
 	}
+	return pairString
 }

@@ -17,6 +17,12 @@ const (
 	sunday
 )
 
+const (
+	anyWeek = iota
+	redWeek
+	blueWeek
+)
+
 var weekdays = []string{
 	"понедельник",
 	"вторник",
